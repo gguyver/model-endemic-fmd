@@ -1,0 +1,8 @@
+out/
+tests/gtest/
+.idea/.name
+.idea/workspace.xml
+cmake-build-debug/
+cmake-build-release/
+build/
+external/yaml-cpp/

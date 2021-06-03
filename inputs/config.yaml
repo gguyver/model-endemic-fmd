@@ -1,0 +1,93 @@
+inputs:
+  node_file: ../inputs/erzurum-nodes.csv
+  shipment_file: ../inputs/erzurum-shipments.csv
+
+outputs:
+  output_directory: ../out/
+  output_id: shipments
+  detailed_reports: true
+  compartment_sums: true
+  infection_events: true
+  verbosity: 2
+
+general:
+  num_runs: 1
+  start_day: 2191
+  end_day: 2291
+
+model_options:
+  run_shipments: true
+  implement_burn_in: false
+  burn_in_duration: 200
+  maternal_immunity: true
+  implement_force_infections: false
+  forcing_rate: 0.00
+  max_node_infection_duration: 1000
+
+seeding:
+  fixed_seed: false
+  number_random_seeds: 2 # only checked if fixed_seed is false
+  # seed nodes should be specified as character to avoid ambiguity
+  seed_nodes:
+    - "25-333-14123"
+    - "25-333-37435"
+  serotype: O
+
+population_parameters:
+  birth_rate: 0.00004
+  mortality_rate: 0.00004
+
+disease:
+  serotypes:
+    - O
+  O_parameters:
+    maternal_immunity_duration: 120
+    beta: 0.5
+    sigma: 0.5
+    gamma: 0.09
+    immunity_duration: 1500
+    mortality: 0.0018
+    transmission: 7.7e-4
+    susceptibility: 1
+    proportion_carriers: 0.5
+    carrier_duration: 730
+    carrier_beta: 0.00266
+  shipments:
+    fomite_transmission_probability: 1.0 # percentage, e.g. 1.0 %
+
+kernel:
+  a: 1.0
+  scale: 0.85
+  shape: 2.7
+
+control_options:
+  detection:
+    detection_probability: 99
+    detection_delay: 8
+  vaccine:
+    O:
+      efficacy: 71
+      efficacy_stdev: 5
+      duration: 150
+    A:
+      efficacy: 75
+      efficacy_stdev: 3
+      duration: 150
+    Asia-1:
+      efficacy: 75
+      efficacy_stdev: 3
+      duration: 150
+  daily_vaccination_capacity: 500
+  reactive_vaccination:
+    implement: false
+    radius: 10
+    coverage: 100
+  mass_vaccination:
+    implement: false
+    interval: 180
+    coverage: 90
+  movement_ban_policy:
+    implement: false
+    radius: 10
+    duration: 7
+    compliance: 100
